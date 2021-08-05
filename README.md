@@ -5,7 +5,7 @@
 Run the server, once instantiated run a client, connect to the IP shown on the server.
 
 ## Note:
-Coming back to this porject after several years, it is clear there is much to improve - the server often hangs, there are some graphical issues, and there are many syncing issues between the clients which come from strategy of reducing communication to a miminum that was implemented when first developed.
+Coming back to this porject after several years, it is clear there is much to improve - the server often hangs, there are some graphical issues, and there are many syncing issues between the clients which come from a strategy of reducing communication to a minimum that was implemented when first developed.
 
 ## Demo:
 (Starting the server):
