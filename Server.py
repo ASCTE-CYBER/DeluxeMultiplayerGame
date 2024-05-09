@@ -142,7 +142,8 @@ class Server(Player, Laser):
         self.server_state = "INITIALISING"
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setblocking(False)
-        self.server.bind((socket.gethostbyname(socket.gethostname()), 6000))
+        # self.server.bind((socket.gethostbyname(socket.gethostname()), 6000))
+        self.server.bind(('', 6000))
         self.server_state = "CONNECTED"
         self.server.listen(10)
 
