@@ -133,7 +133,8 @@ class Laser:
         self.data = self.laser_id + self.player_id + self.colour + str(self.position[0]).zfill(4) + str(self.position[1]).zfill(4)
 
 class Server(Player, Laser):
-    def __init__(self):
+    def __init__(self, hostname):
+        self.hostname = hostname
         self.players = dict()
         self.lasers = dict()
         self.server_state = "OFFLINE"
@@ -143,7 +144,7 @@ class Server(Player, Laser):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setblocking(False)
         # self.server.bind((socket.gethostbyname(socket.gethostname()), 6000))
-        self.server.bind(('', 6000))
+        self.server.bind((self.hostname, 6000))
         self.server_state = "CONNECTED"
         self.server.listen(10)
 
@@ -265,8 +266,9 @@ class Server(Player, Laser):
                 self.remove_dead()
 
 class Mainloop(Server):
-    def __init__(self):
-        Server.__init__(self)
+    def __init__(self, hostname):
+        self.hostname = hostname
+        Server.__init__(self, hostname=self.hostname)
         pygame.init()
 
         self.window_size = (1000, 600)
@@ -324,7 +326,6 @@ class Mainloop(Server):
     def start_screen(self):
         gui_stage = "start"
         back_button = None
-
         while True:
             if gui_stage == "start":
                 self.window.fill((0, 0, 0))
@@ -359,14 +360,12 @@ class Mainloop(Server):
     def server_control(self):
         scroll = 0
         kick_buttons = dict()
-
         thread.start_new_thread(self.start_server, ())
-
         self.window.fill((255,255,255))
-
         while True:
             if self.server_state == "INITIALISING":
-                self.create_textrect((0.1, 0.1), (0.8, 0.7), (0, 225, 0), True, "INITIALSING SERVER AT:" + socket.gethostbyname(socket.gethostname()), 30, (0, 0, 0), "center")
+                # self.create_textrect((0.1, 0.1), (0.8, 0.7), (0, 225, 0), True, "INITIALSING SERVER AT:" + socket.gethostbyname(socket.gethostname()), 30, (0, 0, 0), "center")
+                self.create_textrect((0.1, 0.1), (0.8, 0.7), (0, 225, 0), True, "INITIALSING SERVER AT:" + self.hostname, 30, (0, 0, 0), "center")
             elif self.server_state == "CONNECTED":
                 self.serve_clients()
                 self.window.fill((225, 225, 225))
@@ -418,6 +417,7 @@ class Mainloop(Server):
 
             pygame.display.update()
 
-Mainloop()
+hostname = input('Enter server hostname or IP address: ')
+Mainloop(hostname=hostname)
 
 #bug the player seems to get an object of themselves back, but with the position messed up.
