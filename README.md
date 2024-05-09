@@ -7,6 +7,8 @@ Run the server, once instantiated run a client, connect to the IP shown on the s
 ### Note:
 Coming back to this project after several years, it is clear there is much to improve - the server often hangs, there are some graphical issues, and there are many syncing issues between the clients which come from a strategy of reducing communication to a minimum that was implemented when first developed.
 
+PORT = 6000
+
 ### Demo:
 (Starting the server):
 ![Multiplayer Server](https://user-images.githubusercontent.com/44177991/128271122-f3a3c2ac-5d95-44b0-a324-7535b4248df2.gif)
