@@ -369,7 +369,8 @@ class Mainloop(Server):
             elif self.server_state == "CONNECTED":
                 self.serve_clients()
                 self.window.fill((225, 225, 225))
-                self.create_textrect((0, 0), (0.5, 0.1), (225, 0, 0), True, "SERVER IP:  " + socket.gethostbyname(socket.gethostname()), 20, (225, 225, 225), "center")
+                # self.create_textrect((0, 0), (0.5, 0.1), (225, 0, 0), True, "SERVER IP:  " + socket.gethostbyname(socket.gethostname()), 20, (225, 225, 225), "center")
+                self.create_textrect((0, 0), (0.5, 0.1), (225, 0, 0), True, "SERVER IP:  " + self.hostname, 20, (225, 225, 225), "center")
                 self.create_textrect((0.5, 0), (0.5, 0.1), (225, 0, 0), True, "SERVER STATE:  " + self.server_state, 20, (225, 225, 225), "center")
                 self.display_text("ID", 15, (0, 0, 0), (0, 0.1), "topleft", True)
                 self.display_text("NAME", 15, (0, 0, 0), (0.2, 0.1), "topleft", True)
